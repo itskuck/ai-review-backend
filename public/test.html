@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Business Preview</title>
+</head>
+<body>
+  <h1 id="bizName">Loading...</h1>
+  <img id="logo" src="" alt="Logo" width="150"/>
+  <p id="thankYou"></p>
+
+  <script>
+    const biz = new URLSearchParams(window.location.search).get("biz");
+    fetch(`https://your-backend-url.onrender.com/api/business/${biz}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("bizName").textContent = data.name;
+        document.getElementById("thankYou").textContent = data.thank_you_msg;
+        document.getElementById("logo").src = data.logo_url;
+      })
+      .catch(() => {
+        document.getElementById("bizName").textContent = "Business not found";
+      });
+  </script>
+</body>
+</html>
